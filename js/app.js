@@ -18,7 +18,10 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += dt * this.speed;
-    this.render();
+
+    if (this.x > 505) {
+        this.x = 0;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -36,17 +39,27 @@ var Player = function () {
 };
 
 Player.prototype.update = function (direction) {
-    console.log(4);
     if (direction === 'left') {
+        if (this.x > 0) {
         this.x -=  100;
+        }
     }
     if (direction === 'right') {
+        if (this.x < 400) {
         this.x += 100;
+        }
     }
     if (direction === 'up') {
+        if (this.y > -50) {
         this.y -= 90;
+        }
     }
-        this.render();
+    if (direction === 'down') {
+        if (this.y < 400) {
+        this.y += 90;
+        }
+    }
+
 };
 
 Player.prototype.render = function () {
@@ -61,7 +74,7 @@ Player.prototype.handleInput = function (direction) {
         break;
         case 'up': this.update(direction);
         break;
-        case 'down': console.log();
+        case 'down': this.update(direction);
         break;
     }
 };
@@ -69,7 +82,7 @@ Player.prototype.handleInput = function (direction) {
 var allEnemies = [];
 // Now instantiate your objects.
 
-var e1 = new Enemy(50, 60, 50);
+var e1 = new Enemy(50, 60, 100);
 
 // Place all enemy objects in an array called allEnemies
 allEnemies.push(e1);
