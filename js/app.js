@@ -59,7 +59,7 @@ Player.prototype.update = function (direction) {
         this.y += 90;
         }
     }
-
+console.log(player.y);
 };
 
 Player.prototype.render = function () {

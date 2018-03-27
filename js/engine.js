@@ -55,6 +55,7 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
         win.requestAnimationFrame(main);
+
     }
 
     /* This function does some initial setup that should only occur once,
@@ -78,7 +79,8 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+         checkCollisions();
+
     }
 
     /* This is called by the update function and loops through all of the
@@ -89,12 +91,21 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
+
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
+            //console.log(enemy.x);
         });
        // player.update();
     }
 
+    function checkCollisions() {
+        allEnemies.forEach(function (enemy) {
+            if (enemy.x >= 100 && enemy.x <= 200 && player.x >= 100 && player.x < 200 && player.y >= 40 && player.y < 130) {
+                console.log("collide");
+            }
+        });
+    }
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
      * game tick (or loop of the game engine) because that's how games work -
