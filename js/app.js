@@ -33,59 +33,80 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function () {
-  this.sprite = 'images/char-boy.png';
-  this.x = 200;
-  this.y = 400;
+    this.sprite = 'images/char-boy.png';
+    this.x = 200;
+    this.y = 400;
+    this.score = 0;
 };
 
 Player.prototype.update = function (direction) {
     if (direction === 'left') {
         if (this.x > 0) {
-        this.x -=  100;
+            this.x -=  100;
         }
     }
     if (direction === 'right') {
         if (this.x < 400) {
-        this.x += 100;
+            this.x += 100;
         }
     }
     if (direction === 'up') {
         if (this.y > -50) {
-        this.y -= 90;
+            this.y -= 90;
         }
     }
+
     if (direction === 'down') {
         if (this.y < 400) {
-        this.y += 90;
+            this.y += 90;
         }
     }
-console.log(player.y);
+
+    if (this.y <= -50) {
+        this.score++;
+        setTimeout(() => {
+            alert(`You won. Your score is: ${this.score}`);
+            this.resetPosition();
+        }, 100);
+    }
 };
 
 Player.prototype.render = function () {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
 };
 
 Player.prototype.handleInput = function (direction) {
     switch(direction) {
         case 'left': this.update(direction);
-        break;
+            break;
         case 'right': this.update(direction);
-        break;
+            break;
         case 'up': this.update(direction);
-        break;
+            break;
         case 'down': this.update(direction);
-        break;
+            break;
     }
+};
+
+Player.prototype.resetPosition = function () {
+    this.x = 200;
+    this.y = 400;
+};
+
+Player.prototype.resetScore = function () {
+  this.score = 0;
 };
 
 var allEnemies = [];
 // Now instantiate your objects.
 
 var e1 = new Enemy(50, 60, 100);
+var e2 = new Enemy(80, 150, 300);
 
 // Place all enemy objects in an array called allEnemies
-allEnemies.push(e1);
+allEnemies.push(e1, e2);
+
 
 // Place the player object in a variable called player
 var player = new Player();
